@@ -100,20 +100,8 @@ OAuth2 token management is handled by requesting the token from the backend's to
 
 ## Project Structure
 
+![Image Description](./pstruct11.png)
 
-Customer-Order-Alerts-Frontend-v2/
-├── src/
-│   ├── App.js                     # Main application entry point
-│   ├── components/
-│   │   ├── Home.js                # Home page component
-│   │   ├── CustomerForm.js        # Form to add a new customer
-│   │   ├── OrderForm.js           # Form to add a new order
-│   └── index.js                   # ReactDOM rendering and App setup
-├── public/
-│   └── index.html                 # HTML template
-├── package.json                   # Project configuration and dependencies
-└── README.md                      # Project documentation
-```
 
 ### Important Files
 

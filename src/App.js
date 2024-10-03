@@ -1,11 +1,22 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { Container, Button, Typography } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { CssBaseline, AppBar, Toolbar, Container, Button, Typography, Box, Paper } from '@mui/material';
 import axios from 'axios';
 import Home from './components/Home';
 import CustomerForm from './components/CustomerForm';
 import OrderForm from './components/OrderForm';
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976d2',
+    },
+    secondary: {
+      main: '#dc004e',
+    },
+  },
+});
 
 function App() {
   const [token, setToken] = useState(null);
@@ -63,28 +74,36 @@ function App() {
   }, [token, fetchToken]);
 
   return (
-    <Router>
-      <Container maxWidth="md" style={{ marginTop: '50px' }}>
-        <Typography variant="h4" gutterBottom>Order Alert System</Typography>
-        <nav>
-          <Button component={Link} to="/" variant="contained" color="primary" style={{ marginRight: '10px' }}>
-            Home
-          </Button>
-          <Button component={Link} to="/add-customer" variant="contained" color="secondary" style={{ marginRight: '10px' }}>
-            Add Customer
-          </Button>
-          <Button component={Link} to="/add-order" variant="contained" color="secondary">
-            Add Order
-          </Button>
-        </nav>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <AppBar position="static">
+          <Toolbar>
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/add-customer" element={<CustomerForm api={createApi()} />} />
-          <Route path="/add-order" element={<OrderForm api={createApi()} />} />
-        </Routes>
-      </Container>
-    </Router>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+                Order Alert System
+              </Link>
+            </Typography>
+
+            <Button component={Link} to="/" color="inherit">Home</Button>
+            <Button component={Link} to="/add-customer" color="inherit">Add Customer</Button>
+            <Button component={Link} to="/add-order" color="inherit">Add Order</Button>
+          </Toolbar>
+        </AppBar>
+        <Container maxWidth="md" sx={{ mt: 4 }}>
+          <Paper elevation={3} sx={{ p: 3 }}>
+            <Box sx={{ my: 4 }}>
+              <Routes>
+                <Route path="/" element={ <Home />} />
+                <Route path="/add-customer" element={<CustomerForm api={createApi()} />} />
+                <Route path="/add-order" element={<OrderForm api={createApi()} />} />
+              </Routes>
+            </Box>
+          </Paper>
+        </Container>
+      </Router>
+    </ThemeProvider>
   );
 }
 
